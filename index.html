@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Actividad evaluativa final</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h2>Registro de socios</h2>
+      <hr />
+      <br />
+      <div class="form">
+        CI:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" name="CINo" id="CI" /> <br /><br />
+        Nombre:&nbsp; <input type="text" name="name" id="name" /> <br /><br />
+        Apellido:&nbsp;&nbsp; <input type="text" name="lastname" id="lastname" /> <br /><br />
+        Correo:&nbsp;&nbsp;&nbsp; <input type="text" name="Address" id="address" /> <br /><br />
+      </div>
+
+      <div class="buttons">
+        <button id="crear">Crear</button>
+        <button id="buscar">Buscar</button>
+        <button id="actualizar">Actualizar</button>
+        <button id="eliminar">Eliminar</button>
+      </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.4.2/firebase.js"></script>
+
+    <script src="./firebaseConfig.js"></script>
+
+    <script src="./myscript.js"></script>
+  </body>
+</html>
