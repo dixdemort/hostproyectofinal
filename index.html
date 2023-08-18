@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad evaluativa final</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        body {text-align: center; background-color: black; color: black;}
+    </style>
+</head>
+<body>
+    <div id="authForm">
+        <div class="container3">
+        <h2 style="color:#FF0000";>Iniciar sesión</h2>
+        <input type="email" placeholder="e-mail" id="userEmail">
+        <input type="password" placeholder="password" id="userPassword">  <br><br>
+        </div>
+        <div class="container2">
+        <button id="signInButton">Ingresar</button>
+        </div>
+    </div>
+
+    <div id="secretContent">
+        <div class="container">
+      <h2>Registro de socios</h2>
+      <hr />
+      <br />
+      <div class="form">
+        CI:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" name="CINo" id="CI" /> <br /><br />
+        Nombre:&nbsp; <input type="text" name="name" id="name" /> <br /><br />
+        Apellido:&nbsp;&nbsp; <input type="text" name="lastname" id="lastname" /> <br /><br />
+        Correo:&nbsp;&nbsp;&nbsp; <input type="text" name="Address" id="address" /> <br /><br />
+      </div>
+
+      <div class="buttons">
+        <button id="crear">Crear</button>
+        <button id="buscar">Buscar</button>
+        <button id="actualizar">Actualizar</button>
+        <button id="eliminar">Eliminar</button>
+      </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.4.2/firebase.js"></script>
+
+    <script src="./firebaseConfig.js"></script>
+
+    <script src="./myscript.js"></script>
+        <div class="container4">
+        <button id="signOutButton">Salir</button>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
+        import {
+            getAuth,
+            createUserWithEmailAndPassword,
+            signInWithEmailAndPassword,
+            onAuthStateChanged,
+            signOut
+        } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
+       
+        const firebaseConfig = {
+            apiKey: "AIzaSyDuyxxx-n8xsHnpMKD2h5OWokv_83Nt70M",
+            authDomain: "actividad-evaluativa-final.firebaseapp.com",  
+            databaseURL: "https://actividad-evaluativa-final-default-rtdb.firebaseio.com",
+            projectId: "actividad-evaluativa-final",
+            storageBucket: "actividad-evaluativa-final.appspot.com",
+            messagingSenderId: "169891019786",
+            appId: "1:169891019786:web:29be6947c56b896e5533f3",
+            measurementId: "G-0GX43J2F90"
+            };
+    
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        const userEmail = document.querySelector("#userEmail");
+        const userPassword = document.querySelector("#userPassword");
+        const authForm = document.querySelector("#authForm");
+        const secretContent = document.querySelector("#secretContent");
+        const signUpButton = document.querySelector("#signUpButton");
+        const signInButton = document.querySelector("#signInButton");
+        const signOutButton = document.querySelector("#signOutButton");
+
+        secretContent.style.display = 'none';
+
+        const userSignIn = async() => {
+            const signInEmail = userEmail.value;
+            const signInPassword = userPassword.value;
+            signInWithEmailAndPassword(auth, signInEmail, signInPassword)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                alert("Iniciaste sesión correctamente");
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                alert("Usuario o contraseña incorrecta");
+            })
+        }
+
+        const checkAuthState = async() => {
+            onAuthStateChanged(auth, user => {
+                if(user) {
+                    authForm.style.display = 'none';
+                    secretContent.style.display = 'block';
+                }
+                else {
+                    authForm.style.display = 'block';
+                    secretContent.style.display = 'none';
+                }
+            })
+        }
+
+        const userSignOut = async() => {
+            await signOut(auth);
+        }
+
+        checkAuthState();
+
+        signInButton.addEventListener('click', userSignIn);
+        signOutButton.addEventListener('click', userSignOut);
+      </script>
+</body>
+</html>
